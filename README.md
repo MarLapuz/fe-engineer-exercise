@@ -21,6 +21,9 @@ Open [http://localhost:3000](http://localhost:3000) with your browser.
 ## Deployed URL
 [https://fe-exercise-one.vercel.app/](https://fe-exercise-one.vercel.app/)
 
+## Demo
+[![See Demo](https://github.com/MarLapuz/fe-engineer-exercise/blob/main/thumbnail.png)](https://github.com/MarLapuz/fe-engineer-exercise/blob/main/demo.mp4)
+
 ## What when wrong?
 It was a bit tricky to get the authentication working. Because the cookies are being empty after a page reload, and when handling the cookies on the server I needed to parse the cookies string into an actual cookie and set it to the browse which still doesn't work.
 
