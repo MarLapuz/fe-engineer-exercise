@@ -15,16 +15,9 @@ const config: Config = {
       },
     },
     extend: {
-      fontSize: {
-        "heading-1": ["48px", { lineHeight: "48px" }],
-        "heading-2": ["30px", { lineHeight: "36px" }],
-        "heading-3": ["24px", { lineHeight: "32px" }],
-        "heading-4": ["20px", { lineHeight: "28px" }],
-        "body-xl": ["20px", { lineHeight: "28px" }],
-        "body-lg": ["18px", { lineHeight: "24px" }],
-        "body-md": ["16px", { lineHeight: "22px" }],
-        "body-sm": ["14px", { lineHeight: "18px" }],
-        "body-xs": ["12px", { lineHeight: "16px" }],
+      fontFamily: {
+        "geist-sans": ["var(--font-geist-sans)"],
+        "geist-mono": ["var(--font-geist-mono)"],
       },
       colors: {
         background: "hsl(var(--background))",
