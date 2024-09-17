@@ -1,5 +1,7 @@
 This is a [Next.js](https://nextjs.org) project bootstrapped with [`create-next-app`](https://nextjs.org/docs/app/api-reference/cli/create-next-app).
 
+## [Exercise](https://frontend-take-home.fetch.com/)
+
 ## Running it locally
 
 ```bash
@@ -19,7 +21,7 @@ Open [http://localhost:3000](http://localhost:3000) with your browser.
 [https://fe-exercise-one.vercel.app/](https://fe-exercise-one.vercel.app/)
 
 ## What when wrong?
-It was a bit tricky to get the authentication working. Because the cookies are being empty after a page reload, and when handling the cookies on the server I needed to parse the cookies string into a actual cookie and set it to the browse which still doesn't work.
+It was a bit tricky to get the authentication working. Because the cookies are being empty after a page reload, and when handling the cookies on the server I needed to parse the cookies string into an actual cookie and set it to the browse which still doesn't work.
 
 My bandage solution was to have a context provider state that handles if the user has successfully hit the endpoint `/auth/login` then just switch to the search view.
 
@@ -47,7 +49,7 @@ I learned more about HttpOnly cookies.
 - Responsive
 - Modern UI
 
-## Tech Stack
+## Tech Stack Used
 - [Next.js](https://nextjs.org/)
 - [Tailwind CSS](https://tailwindcss.com/)
 - [React](https://reactjs.org/)
