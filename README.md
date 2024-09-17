@@ -1,6 +1,7 @@
 This is a [Next.js](https://nextjs.org) project bootstrapped with [`create-next-app`](https://nextjs.org/docs/app/api-reference/cli/create-next-app).
 
-## [Exercise](https://frontend-take-home.fetch.com/)
+## Exercise
+[Fetch Frontend Take-Home Exercise](https://frontend-take-home.fetch.com/exercises/1)
 
 ## Running it locally
 
