@@ -1,8 +1,6 @@
 This is a [Next.js](https://nextjs.org) project bootstrapped with [`create-next-app`](https://nextjs.org/docs/app/api-reference/cli/create-next-app).
 
-## Getting Started
-
-First, run the development server:
+## Running it locally
 
 ```bash
 npm run dev
@@ -14,23 +12,49 @@ pnpm dev
 bun dev
 ```
 
-Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
+Open [http://localhost:3000](http://localhost:3000) with your browser.
 
-You can start editing the page by modifying `app/page.tsx`. The page auto-updates as you edit the file.
 
-This project uses [`next/font`](https://nextjs.org/docs/app/building-your-application/optimizing/fonts) to automatically optimize and load [Geist](https://vercel.com/font), a new font family for Vercel.
+## Deployed URL
+[https://fe-exercise-one.vercel.app/](https://fe-exercise-one.vercel.app/)
 
-## Learn More
+## What when wrong?
+It was a bit tricky to get the authentication working. Because the cookies are being empty after a page reload, and when handling the cookies on the server I needed to parse the cookies string into a actual cookie and set it to the browse which still doesn't work.
 
-To learn more about Next.js, take a look at the following resources:
+My bandage solution was to have a context provider state that handles if the user has successfully hit the endpoint `/auth/login` then just switch to the search view.
 
-- [Next.js Documentation](https://nextjs.org/docs) - learn about Next.js features and API.
-- [Learn Next.js](https://nextjs.org/learn) - an interactive Next.js tutorial.
+## What could be improved?
+- I used next-auth and Clerk for authentication with my past projects and I would say it would be easier to use those libraries when it comes to authentication. But I know the exercise indicates that I need to roll-up my own auth flow.
+- Secondly, I think adding some minor animations like fade-in and fade-out would be nice.
+- The UI for adding dog to favories can be improved. I just experimented with it a long the way.
+- If I was able to used to cookies properly, I would have call the function endpoint e.g. the list of breeds or the initial dog search on the server component/page and then pass it to the client child component as initialData for the query hooks. That way the initial data would have been much faster to display.
+- Saving the state of the params as URL query params. That way the user can share the URL with others and they can get the same results and every time the user refreshes the page the filters are already applied.
 
-You can check out [the Next.js GitHub repository](https://github.com/vercel/next.js) - your feedback and contributions are welcome!
+## What I learned?
+I learned more about HttpOnly cookies.
 
-## Deploy on Vercel
+## Features
+- Light/Dark mode
+- Form validation
+- Loading states
+- Search by breed
+- Search by location
+- Sorting
+- Pagination
+- Add dog to favorites
+- Find a furfect companion
+- Informative tooltips and toasts
+- Responsive
+- Modern UI
 
-The easiest way to deploy your Next.js app is to use the [Vercel Platform](https://vercel.com/new?utm_medium=default-template&filter=next.js&utm_source=create-next-app&utm_campaign=create-next-app-readme) from the creators of Next.js.
-
-Check out our [Next.js deployment documentation](https://nextjs.org/docs/app/building-your-application/deploying) for more details.
+## Tech Stack
+- [Next.js](https://nextjs.org/)
+- [Tailwind CSS](https://tailwindcss.com/)
+- [React](https://reactjs.org/)
+- [TypeScript](https://www.typescriptlang.org/)
+- [Tanstack Query](https://tanstack.com/query/latest)
+- [React Hook Form](https://react-hook-form.com/)
+- [Lucide](https://lucide.dev/)
+- [Vercel](https://vercel.com/)
+- [Shad/cn](https://ui.shadcn.com/)
+- [Zod](https://zod.dev/)
