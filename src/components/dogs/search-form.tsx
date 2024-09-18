@@ -1,8 +1,10 @@
 "use client";
 
+import dynamic from "next/dynamic";
 import Image from "next/image";
 import { useState } from "react";
 
+import { useLocalStorage } from "@uidotdev/usehooks";
 import {
   ArrowDownAZ,
   ArrowUpAZ,
@@ -57,9 +59,12 @@ import { Dog } from "@/lib/definitions";
 import { cn, useDebounce } from "@/lib/utils";
 
 import { ScrollArea } from "../ui/scroll-area";
-import { DogAttributes, DogCard } from "./card";
+import { DogAttributes } from "./card";
 import { useSearchContext } from "./search-context";
-import { useLocalStorage } from "@uidotdev/usehooks";
+
+const DogCard = dynamic(() => import("@/components/dogs/card"), {
+  ssr: false,
+});
 
 export default function DogSearchForm() {
   return (
@@ -348,7 +353,7 @@ function FavoritesSheet() {
             {favDogs && favDogs.length > 0 ? (
               favDogs.map((dog) => <DogCard key={dog.id} dog={dog} />)
             ) : (
-              <p className="text-center text-body-sm font-medium text-gray-500 dark:text-gray-400">
+              <p className="text-body-sm text-center font-medium text-gray-500 dark:text-gray-400">
                 You have no favorites yet.
               </p>
             )}
@@ -418,10 +423,10 @@ function FavoritesSheet() {
                     )}
 
                     <div className="flex h-full flex-col p-[16px] text-center">
-                      <p className="truncated mb-[6px] line-clamp-1 text-body-md font-[600] text-slate-900 dark:text-white">
+                      <p className="truncated text-body-md mb-[6px] line-clamp-1 font-[600] text-slate-900 dark:text-white">
                         {matchedDog.name}
                       </p>
-                      <p className="truncated mb-[12px] line-clamp-3 text-body-xs font-[500] text-slate-500 dark:text-gray-400">
+                      <p className="truncated text-body-xs mb-[12px] line-clamp-3 font-[500] text-slate-500 dark:text-gray-400">
                         {matchedDog.breed}
                       </p>
                     </div>

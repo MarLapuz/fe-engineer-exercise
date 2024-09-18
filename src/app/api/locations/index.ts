@@ -3,7 +3,6 @@ import {
   LocationSearchResponse,
 } from "@/lib/definitions";
 
-
 export async function searchLocations(
   query?: LocationSearchQueryParams,
 ): Promise<LocationSearchResponse> {

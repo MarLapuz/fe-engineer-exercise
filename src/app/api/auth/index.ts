@@ -1,6 +1,4 @@
-
 import { AuthenticateRequest } from "@/lib/definitions";
-
 
 export async function authenticate(
   request: AuthenticateRequest,
@@ -18,7 +16,7 @@ export async function authenticate(
     throw new Error(`Failed to authenticate user: ${await response.text()}`);
   }
 
-  return response
+  return response;
 }
 
 ////////////////////////////////////////////////////////////////////////////////
@@ -36,5 +34,5 @@ export async function logout() {
     throw new Error(`Failed to authenticate user: ${await response.text()}`);
   }
 
-  return response
+  return response;
 }

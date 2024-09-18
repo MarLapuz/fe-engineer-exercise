@@ -12,7 +12,7 @@ import {
   useState,
 } from "react";
 
-import {  DogSearchQueryParams, Location } from "@/lib/definitions";
+import { DogSearchQueryParams, Location } from "@/lib/definitions";
 
 type SearchContextValue = {
   selectedBreeds: string[];

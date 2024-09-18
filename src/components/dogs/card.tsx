@@ -1,5 +1,6 @@
 import Image from "next/image";
 
+import { useLocalStorage } from "@uidotdev/usehooks";
 import { Star, StarOff } from "lucide-react";
 
 import { Card, CardContent } from "@/components/ui/card";
@@ -17,17 +18,14 @@ import { Avatar } from "../ui/avatar";
 import { Badge } from "../ui/badge";
 import { Button } from "../ui/button";
 import { Skeleton } from "../ui/skeleton";
-import { useLocalStorage } from "@uidotdev/usehooks";
 
 export type DogAttribute = {
   name: string;
   value: string | number;
 };
 
-export function DogCard({ dog }: { dog: Dog }) {
-  const [favDogs, setFavDogs] = useLocalStorage<Dog[] | undefined>(
-    "favDogs",
-  );
+export default function DogCard({ dog }: { dog: Dog }) {
+  const [favDogs, setFavDogs] = useLocalStorage<Dog[] | undefined>("favDogs");
   const { toast } = useToast();
 
   const isFavorite = favDogs?.find((d) => d.id === dog.id) !== undefined;
@@ -107,10 +105,10 @@ export function DogCard({ dog }: { dog: Dog }) {
               )}
 
               <div className="flex h-full flex-col p-[16px] text-center">
-                <p className="truncated mb-[6px] line-clamp-1 text-body-sm font-[600] text-slate-900 dark:text-white">
+                <p className="truncated text-body-sm mb-[6px] line-clamp-1 font-[600] text-slate-900 dark:text-white">
                   {dog.name}
                 </p>
-                <p className="truncated mb-[12px] line-clamp-3 text-body-xs font-[500] text-slate-500 dark:text-gray-400">
+                <p className="truncated text-body-xs mb-[12px] line-clamp-3 font-[500] text-slate-500 dark:text-gray-400">
                   {dog.breed}
                 </p>
               </div>
@@ -139,10 +137,10 @@ export function DogCard({ dog }: { dog: Dog }) {
             <Avatar className="mb-[16px] h-[64px] w-[64px] rounded-full bg-primary bg-gradient-to-r from-cyan-500 to-blue-500" />
           )}
 
-          <h3 className="mb-[8px] text-body-lg font-[600] text-slate-900 dark:text-white">
+          <h3 className="text-body-lg mb-[8px] font-[600] text-slate-900 dark:text-white">
             {dog.name}
           </h3>
-          <p className="mb-[24px] text-body-sm font-[500] text-slate-500 dark:text-gray-400">
+          <p className="text-body-sm mb-[24px] font-[500] text-slate-500 dark:text-gray-400">
             {dog.breed}
           </p>
           <DogAttributes attributes={attributes} className="flex-col" />
@@ -174,7 +172,7 @@ export function DogAttributes({
           <span className="text-body-sm font-semibold text-gray-500 dark:text-gray-400">
             {attribute.name}:
           </span>
-          <span className="ml-[4px] truncate text-body-sm font-medium text-black dark:text-gray-200">
+          <span className="text-body-sm ml-[4px] truncate font-medium text-black dark:text-gray-200">
             {attribute.value}
           </span>
         </Badge>

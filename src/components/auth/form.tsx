@@ -1,8 +1,10 @@
 "use client";
 
+import { useRouter } from "next/navigation";
 import { useState } from "react";
 
 import { zodResolver } from "@hookform/resolvers/zod";
+import { useLocalStorage } from "@uidotdev/usehooks";
 import { ArrowRight, Loader2 } from "lucide-react";
 import { useForm } from "react-hook-form";
 
@@ -27,15 +29,14 @@ import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
 import { useToast } from "@/hooks/use-toast";
-import { AuthenticateRequest, AuthenticateSchema, AuthUser } from "@/lib/definitions";
-import { useRouter } from "next/navigation";
-
-import { useLocalStorage } from "@uidotdev/usehooks";
+import {
+  AuthenticateRequest,
+  AuthenticateSchema,
+  AuthUser,
+} from "@/lib/definitions";
 
 export default function AuthForm() {
-  const [_, setAuthUser] = useLocalStorage<AuthUser>(
-    "authUser",
-  );
+  const [_, setAuthUser] = useLocalStorage<AuthUser>("authUser");
   const router = useRouter();
   const { toast } = useToast();
   const form = useForm<AuthenticateRequest>({
@@ -54,25 +55,24 @@ export default function AuthForm() {
     const { name, email } = data;
 
     try {
-   const response =   await authenticate({
+      const response = await authenticate({
         name,
         email,
       });
 
       if (response) {
-      setAuthUser({
-        name,
-        email
-      });
+        setAuthUser({
+          name,
+          email,
+        });
 
-      toast({
-        title: `Welcome ${name}!`,
-        description: "You have successfully signed in.",
-      });
+        toast({
+          title: `Welcome ${name}!`,
+          description: "You have successfully signed in.",
+        });
 
-      router.push("/");
+        router.push("/");
       }
-
     } catch (error) {
       toast({
         title: "Error",

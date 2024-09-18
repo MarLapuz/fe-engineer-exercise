@@ -4,11 +4,9 @@ import {
   DogSearchResponse,
 } from "@/lib/definitions";
 
-
 export async function searchDogs(
   query?: DogSearchQueryParams,
 ): Promise<DogSearchResponse> {
-
   const params = new URLSearchParams();
 
   if (query) {

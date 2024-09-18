@@ -2,24 +2,22 @@
 
 import { useTheme } from "next-themes";
 import Link from "next/link";
+import { useRouter } from "next/navigation";
 import { useEffect, useState } from "react";
 
+import { useLocalStorage } from "@uidotdev/usehooks";
 import { LogOut, Moon, PawPrint, Sun } from "lucide-react";
 
 import { Button } from "@/components/ui/button";
+import { useToast } from "@/hooks/use-toast";
+import { AuthUser } from "@/lib/definitions";
 
 import { logout } from "./api/auth";
-import { useLocalStorage } from "@uidotdev/usehooks";
-import { AuthUser } from "@/lib/definitions";
-import { useRouter } from "next/navigation";
-import { useToast } from "@/hooks/use-toast";
 
 export default function Navbar() {
   const router = useRouter();
-  const {toast} = useToast();
-  const [authUser, setAuthUser] = useLocalStorage<AuthUser>(
-    "authUser",
-  );
+  const { toast } = useToast();
+  const [authUser, setAuthUser] = useLocalStorage<AuthUser>("authUser");
   const { theme, setTheme } = useTheme();
   const [mounted, setMounted] = useState(false);
   useEffect(() => {
@@ -77,7 +75,8 @@ export default function Navbar() {
                   await logout();
                   toast({
                     title: "Have a Pawesome day!",
-                    description: "The pups will be here waiting for you! 🐶 Come back soon for more tail wags and cuddles!",
+                    description:
+                      "The pups will be here waiting for you! 🐶 Come back soon for more tail wags and cuddles!",
                     duration: 5000,
                   });
                   router.push("/login");

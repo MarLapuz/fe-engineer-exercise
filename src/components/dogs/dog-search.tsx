@@ -1,11 +1,19 @@
 "use client";
 
-import DogSearchForm from "@/components/dogs/search-form";
+import dynamic from "next/dynamic";
+
 import { useFetchDogsQuery, useSearchDogsQuery } from "@/hooks/dogs";
 
-import { DogCard, SkeletonDogCard } from "./card";
+import { SkeletonDogCard } from "./card";
 import Pagination from "./pagination";
 import { useSearchContext } from "./search-context";
+
+const DogCard = dynamic(() => import("@/components/dogs/card"), {
+  ssr: false,
+});
+const DogSearchForm = dynamic(() => import("@/components/dogs/search-form"), {
+  ssr: false,
+});
 
 export function DogSearch() {
   const { queryParams, itemsPerPage } = useSearchContext();
@@ -39,7 +47,7 @@ export function DogSearch() {
         )}
       </div>
       {data?.total === 0 && (
-        <p className="text-center text-body-md italic text-gray-500 dark:text-gray-400">
+        <p className="text-body-md text-center italic text-gray-500 dark:text-gray-400">
           Unfortunately, we couldn&apos;t find any dogs matching your search.
         </p>
       )}{" "}

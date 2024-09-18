@@ -3,12 +3,17 @@ import localFont from "next/font/local";
 
 import "./globals.css";
 
+import dynamic from "next/dynamic";
+
 import { ThemeProvider } from "@/components/theme-provider";
 import { Toaster } from "@/components/ui/toaster";
 
 import Footer from "./footer";
-import Navbar from "./nav";
 import Providers from "./providers";
+
+const Navbar = dynamic(() => import("./nav"), {
+  ssr: false,
+});
 
 const geistSans = localFont({
   src: "./fonts/GeistVF.woff",
