@@ -22,7 +22,7 @@ Open [http://localhost:3000](http://localhost:3000) with your browser.
 [https://fe-exercise-one.vercel.app/](https://fe-exercise-one.vercel.app/)
 
 
-## What when wrong?
+## What went wrong?
 It was a bit tricky to get the authentication working. Because the cookies are being empty after a page reload, and when handling the cookies on the server I needed to parse the cookies string into an actual cookie and set it to the browse which still doesn't work.
 
 My solution was to proxy the requests to the backend using Next.js `rewrites` and then use the cookies to authenticate the user.
