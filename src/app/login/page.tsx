@@ -1,6 +1,7 @@
 import AuthForm from "@/components/auth/form";
 
 export default function Login() {
+
   return (
     <main className="flex-1">
       <section className="w-full py-12 md:py-24">

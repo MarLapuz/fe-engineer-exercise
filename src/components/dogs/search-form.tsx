@@ -59,6 +59,7 @@ import { cn, useDebounce } from "@/lib/utils";
 import { ScrollArea } from "../ui/scroll-area";
 import { DogAttributes, DogCard } from "./card";
 import { useSearchContext } from "./search-context";
+import { useLocalStorage } from "@uidotdev/usehooks";
 
 export default function DogSearchForm() {
   return (
@@ -316,7 +317,7 @@ function ClearFiltersButton() {
 //////////////////////////////////////////////////////////////////////////////////////////
 
 function FavoritesSheet() {
-  const { favDogs } = useSearchContext();
+  const [favDogs] = useLocalStorage<Dog[] | undefined>("favDogs");
   const [sheetOpen, setSheetOpen] = useState(false);
   const [dialogOpen, setDialogOpen] = useState(false);
   const [matchedDog, setMatchedDog] = useState<Dog | null>(null);
@@ -329,7 +330,7 @@ function FavoritesSheet() {
         <Button variant="outline" className="w-full">
           <Star className="mr-2 h-4 w-4 fill-yellow-500 text-yellow-500" />
           <span className="mr-2 md:hidden lg:block">View Favorites</span> (
-          {favDogs.length})
+          {favDogs?.length ?? 0})
         </Button>
       </SheetTrigger>
       <SheetContent className="p-0">
@@ -344,7 +345,7 @@ function FavoritesSheet() {
             </SheetDescription>
           </SheetHeader>
           <div className="my-8 grid grid-cols-1 gap-4">
-            {favDogs.length > 0 ? (
+            {favDogs && favDogs.length > 0 ? (
               favDogs.map((dog) => <DogCard key={dog.id} dog={dog} />)
             ) : (
               <p className="text-center text-body-sm font-medium text-gray-500 dark:text-gray-400">
@@ -352,7 +353,7 @@ function FavoritesSheet() {
               </p>
             )}
           </div>
-          {favDogs.length > 0 && (
+          {favDogs && favDogs.length > 0 && (
             <SheetFooter className="mb-6 w-full flex-col !justify-center">
               <Dialog
                 open={dialogOpen}

@@ -3,27 +3,26 @@ import {
   LocationSearchResponse,
 } from "@/lib/definitions";
 
-import { BACKEND_FQDN } from "../fqdn";
 
 export async function searchLocations(
   query?: LocationSearchQueryParams,
 ): Promise<LocationSearchResponse> {
-  const url = new URL(`${BACKEND_FQDN}/locations/search`);
+  const params = new URLSearchParams();
 
   if (query) {
     Object.entries(query).forEach(([key, value]) => {
       if (Array.isArray(value)) {
-        value.forEach((item) => url.searchParams.append(key, item));
+        value.forEach((item) => params.append(key, item));
       } else if (value !== undefined) {
-        url.searchParams.append(key, value.toString());
+        params.append(key, value.toString());
       }
     });
   }
 
-  const response = await fetch(url.toString(), {
+  const response = await fetch(`/api/locations/search?${params.toString()}`, {
     method: "POST",
     headers: {
-      "content-type": "application/json",
+      "Content-Type": "application/json",
     },
     credentials: "include",
   });

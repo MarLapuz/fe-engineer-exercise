@@ -4,27 +4,28 @@ import {
   DogSearchResponse,
 } from "@/lib/definitions";
 
-import { BACKEND_FQDN } from "../fqdn";
 
 export async function searchDogs(
   query?: DogSearchQueryParams,
 ): Promise<DogSearchResponse> {
-  const url = new URL(`${BACKEND_FQDN}/dogs/search`);
+
+  const params = new URLSearchParams();
 
   if (query) {
     Object.entries(query).forEach(([key, value]) => {
       if (Array.isArray(value)) {
-        value.forEach((item) => url.searchParams.append(key, item));
+        value.forEach((item) => params.append(key, item));
       } else if (value !== undefined) {
-        url.searchParams.append(key, value.toString());
+        params.append(key, value.toString());
       }
     });
   }
+  console.log(params.toString());
 
-  const response = await fetch(url.toString(), {
+  const response = await fetch(`/api/dogs/search?${params.toString()}`, {
     method: "GET",
     headers: {
-      "content-type": "application/json",
+      "Content-Type": "application/json",
     },
     credentials: "include",
   });
@@ -41,10 +42,10 @@ export async function searchDogs(
 ////////////////////////////////////////////////////////////////////////////////////////////////////
 
 export async function listDogBreeds(): Promise<string[]> {
-  const response = await fetch(`${BACKEND_FQDN}/dogs/breeds`, {
+  const response = await fetch(`/api/dogs/breeds`, {
     method: "GET",
     headers: {
-      "content-type": "application/json",
+      "Content-Type": "application/json",
     },
     credentials: "include",
   });
@@ -61,10 +62,10 @@ export async function listDogBreeds(): Promise<string[]> {
 ////////////////////////////////////////////////////////////////////////////////////////////////////
 
 export async function fetchDogs(ids: string[]): Promise<Dog[]> {
-  const response = await fetch(`${BACKEND_FQDN}/dogs`, {
+  const response = await fetch(`/api/dogs`, {
     method: "POST",
     headers: {
-      "content-type": "application/json",
+      "Content-Type": "application/json",
     },
     credentials: "include",
     body: JSON.stringify(ids),
@@ -88,10 +89,10 @@ export type FetchMatchDogRequest = {
 export async function fetchMatchDog(
   request: FetchMatchDogRequest,
 ): Promise<Dog> {
-  const response = await fetch(`${BACKEND_FQDN}/dogs/match`, {
+  const response = await fetch(`/api/dogs/match`, {
     method: "POST",
     headers: {
-      "content-type": "application/json",
+      "Content-Type": "application/json",
     },
     credentials: "include",
     body: JSON.stringify(request.ids),

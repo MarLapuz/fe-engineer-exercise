@@ -1,10 +1,10 @@
 /** @type {import('next').NextConfig} */
 const nextConfig = {
-  async rewrites() {
+async rewrites() {
     return [
       {
-        source: "/api/:path*",
-        destination: "https://frontend-take-home.fetch.com/:path*",
+        source: '/api/:path*',
+        destination: `${process.env.NEXT_PUBLIC_BACKEND_FQDN}/:path*`,
       },
     ];
   },

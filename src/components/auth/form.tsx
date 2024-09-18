@@ -7,7 +7,6 @@ import { ArrowRight, Loader2 } from "lucide-react";
 import { useForm } from "react-hook-form";
 
 import { authenticate } from "@/app/api/auth";
-import { useAuthContext } from "@/app/providers";
 import { Button } from "@/components/ui/button";
 import {
   Card,
@@ -28,10 +27,16 @@ import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
 import { useToast } from "@/hooks/use-toast";
-import { AuthenticateRequest, AuthenticateSchema } from "@/lib/definitions";
+import { AuthenticateRequest, AuthenticateSchema, AuthUser } from "@/lib/definitions";
+import { useRouter } from "next/navigation";
+
+import { useLocalStorage } from "@uidotdev/usehooks";
 
 export default function AuthForm() {
-  const { setIsAuthenticated } = useAuthContext();
+  const [_, setAuthUser] = useLocalStorage<AuthUser>(
+    "authUser",
+  );
+  const router = useRouter();
   const { toast } = useToast();
   const form = useForm<AuthenticateRequest>({
     resolver: zodResolver(AuthenticateSchema),
@@ -49,16 +54,25 @@ export default function AuthForm() {
     const { name, email } = data;
 
     try {
-      await authenticate({
+   const response =   await authenticate({
         name,
         email,
+      });
+
+      if (response) {
+      setAuthUser({
+        name,
+        email
       });
 
       toast({
         title: `Welcome ${name}!`,
         description: "You have successfully signed in.",
       });
-      setIsAuthenticated(true);
+
+      router.push("/");
+      }
+
     } catch (error) {
       toast({
         title: "Error",

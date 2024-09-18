@@ -12,7 +12,7 @@ import {
   useState,
 } from "react";
 
-import { Dog, DogSearchQueryParams, Location } from "@/lib/definitions";
+import {  DogSearchQueryParams, Location } from "@/lib/definitions";
 
 type SearchContextValue = {
   selectedBreeds: string[];
@@ -21,8 +21,6 @@ type SearchContextValue = {
   setSortAscending: Dispatch<SetStateAction<boolean>>;
   currentPage: number;
   setCurrentPage: Dispatch<SetStateAction<number>>;
-  favDogs: Dog[];
-  setFavDogs: Dispatch<SetStateAction<Dog[]>>;
   selectedLocations: Location[];
   setSelectedLocations: Dispatch<SetStateAction<Location[]>>;
   queryParams: DogSearchQueryParams;
@@ -37,8 +35,6 @@ const SearchContext = createContext<SearchContextValue>({
   setSortAscending: () => {},
   currentPage: 1,
   setCurrentPage: () => {},
-  favDogs: [],
-  setFavDogs: () => {},
   selectedLocations: [],
   setSelectedLocations: () => {},
   queryParams: {
@@ -56,7 +52,6 @@ export const SearchProvider: FC<PropsWithChildren> = ({ children }) => {
   const [selectedBreeds, setSelectedBreeds] = useState<string[]>([]);
   const [sortAscending, setSortAscending] = useState(true);
   const [currentPage, setCurrentPage] = useState(1);
-  const [favDogs, setFavDogs] = useState<Dog[]>([]);
   const [selectedLocations, setSelectedLocations] = useState<Location[]>([]);
   const itemsPerPage = 20;
 
@@ -75,8 +70,6 @@ export const SearchProvider: FC<PropsWithChildren> = ({ children }) => {
       setSortAscending,
       currentPage,
       setCurrentPage,
-      favDogs,
-      setFavDogs,
       selectedLocations,
       setSelectedLocations,
       queryParams: {
@@ -96,8 +89,6 @@ export const SearchProvider: FC<PropsWithChildren> = ({ children }) => {
       setSortAscending,
       currentPage,
       setCurrentPage,
-      favDogs,
-      setFavDogs,
       selectedLocations,
       setSelectedLocations,
       handleClearFilters,

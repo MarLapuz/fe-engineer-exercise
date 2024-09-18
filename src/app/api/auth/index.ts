@@ -1,13 +1,11 @@
-import { redirect } from "next/navigation";
 
 import { AuthenticateRequest } from "@/lib/definitions";
 
-import { BACKEND_FQDN } from "../fqdn";
 
 export async function authenticate(
   request: AuthenticateRequest,
-): Promise<boolean> {
-  const response = await fetch(`${BACKEND_FQDN}/auth/login`, {
+): Promise<Response> {
+  const response = await fetch(`/api/auth/login`, {
     method: "POST",
     headers: {
       "Content-Type": "application/json",
@@ -20,13 +18,13 @@ export async function authenticate(
     throw new Error(`Failed to authenticate user: ${await response.text()}`);
   }
 
-  return true;
+  return response
 }
 
 ////////////////////////////////////////////////////////////////////////////////
 
 export async function logout() {
-  const response = await fetch(`${BACKEND_FQDN}/auth/logout`, {
+  const response = await fetch(`/api/auth/logout`, {
     method: "POST",
     headers: {
       "Content-Type": "application/json",
@@ -38,5 +36,5 @@ export async function logout() {
     throw new Error(`Failed to authenticate user: ${await response.text()}`);
   }
 
-  redirect("/");
+  return response
 }

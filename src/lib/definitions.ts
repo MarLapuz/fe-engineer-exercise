@@ -7,6 +7,8 @@ export const AuthenticateSchema = z.object({
 
 export type AuthenticateRequest = z.infer<typeof AuthenticateSchema>;
 
+export type AuthUser = z.infer<typeof AuthenticateSchema> | undefined;
+
 ////////////////////////////////////////////////////////////////////////////////////////////////////
 
 export const DogSearchQueryParams = z.object({

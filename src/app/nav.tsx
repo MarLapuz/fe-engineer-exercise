@@ -9,10 +9,17 @@ import { LogOut, Moon, PawPrint, Sun } from "lucide-react";
 import { Button } from "@/components/ui/button";
 
 import { logout } from "./api/auth";
-import { useAuthContext } from "./providers";
+import { useLocalStorage } from "@uidotdev/usehooks";
+import { AuthUser } from "@/lib/definitions";
+import { useRouter } from "next/navigation";
+import { useToast } from "@/hooks/use-toast";
 
 export default function Navbar() {
-  const { isAuthenticated, setIsAuthenticated } = useAuthContext();
+  const router = useRouter();
+  const {toast} = useToast();
+  const [authUser, setAuthUser] = useLocalStorage<AuthUser>(
+    "authUser",
+  );
   const { theme, setTheme } = useTheme();
   const [mounted, setMounted] = useState(false);
   useEffect(() => {
@@ -60,14 +67,20 @@ export default function Navbar() {
                 <Moon className="h-5 w-5" />
               )}
             </button>
-            {isAuthenticated && (
+            {authUser && (
               <Button
                 size="icon"
                 variant="outline"
                 className="ml-4 transition-all duration-300 hover:bg-blue-600 hover:text-white dark:text-white dark:hover:bg-blue-400"
                 onClick={async () => {
-                  setIsAuthenticated(false);
+                  setAuthUser(undefined);
                   await logout();
+                  toast({
+                    title: "Have a Pawesome day!",
+                    description: "The pups will be here waiting for you! 🐶 Come back soon for more tail wags and cuddles!",
+                    duration: 5000,
+                  });
+                  router.push("/login");
                 }}
               >
                 <LogOut className="h-5 w-5" />

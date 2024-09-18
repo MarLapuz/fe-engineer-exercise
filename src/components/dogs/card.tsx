@@ -17,7 +17,7 @@ import { Avatar } from "../ui/avatar";
 import { Badge } from "../ui/badge";
 import { Button } from "../ui/button";
 import { Skeleton } from "../ui/skeleton";
-import { useSearchContext } from "./search-context";
+import { useLocalStorage } from "@uidotdev/usehooks";
 
 export type DogAttribute = {
   name: string;
@@ -25,10 +25,12 @@ export type DogAttribute = {
 };
 
 export function DogCard({ dog }: { dog: Dog }) {
-  const { favDogs, setFavDogs } = useSearchContext();
+  const [favDogs, setFavDogs] = useLocalStorage<Dog[] | undefined>(
+    "favDogs",
+  );
   const { toast } = useToast();
 
-  const isFavorite = favDogs.find((d) => d.id === dog.id) !== undefined;
+  const isFavorite = favDogs?.find((d) => d.id === dog.id) !== undefined;
 
   const attributes: DogAttribute[] = [
     {
@@ -47,10 +49,10 @@ export function DogCard({ dog }: { dog: Dog }) {
 
   const handleFavoriteToggle = (dog: Dog) => {
     setFavDogs((prev) => {
-      if (prev.find((d) => d.id === dog.id)) {
+      if (prev?.find((d) => d.id === dog.id)) {
         return prev.filter((d) => d.id !== dog.id);
       } else {
-        return [...prev, dog];
+        return [...(prev ?? []), dog];
       }
     });
   };
