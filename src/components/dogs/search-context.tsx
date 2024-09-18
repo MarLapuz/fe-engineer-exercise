@@ -83,7 +83,7 @@ export const SearchProvider: FC<PropsWithChildren> = ({ children }) => {
         breeds: selectedBreeds,
         size: itemsPerPage,
         from: String((currentPage - 1) * itemsPerPage),
-        sort: `name:${sortAscending ? "asc" : "desc"}`,
+        sort: `breed:${sortAscending ? "asc" : "desc"}`,
         zipCodes: selectedLocations.map((location) => location.zip_code),
       },
       itemsPerPage,
